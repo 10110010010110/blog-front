@@ -18,5 +18,21 @@ vue3+vite 实现简易博客系统
    3.启动开发服务器：
    npm run dev
    4.浏览器访问终端输出的地址（通常是 http://127.0.0.1:5173/），看到 Vite + Vue 的默认页面即表示成功。
+二.引入element-plus和@element-plus/icons-vue
+  文档：
+element-plus：https://element-plus.org/zh-CN/guide/quickstart.html#%E5%AE%8C%E6%95%B4%E5%BC%95%E5%85%A5
+
+@element-plus/icons-vue：https://element-plus.org/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87
+
+这里ElementPlus我们使用完整引入
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+app.use(ElementPlus)
+
+//注册@element-plus/icons-vue图标
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 
  

@@ -1,11 +1,9 @@
 <script setup>
+
 </script>
 
 <template>
-  <div>
-    <p>简易博客系统</p>
-  
-  </div>
+  <router-view ></router-view>
 </template>
 
 <style scoped>
