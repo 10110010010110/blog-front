@@ -20,19 +20,105 @@ vue3+vite 实现简易博客系统
    4.浏览器访问终端输出的地址（通常是 http://127.0.0.1:5173/），看到 Vite + Vue 的默认页面即表示成功。
 二.引入element-plus和@element-plus/icons-vue
   文档：
-element-plus：https://element-plus.org/zh-CN/guide/quickstart.html#%E5%AE%8C%E6%95%B4%E5%BC%95%E5%85%A5
+   element-plus：https://element-plus.org/zh-CN/guide/quickstart.html#%E5%AE%8C%E6%95%B4%E5%BC%95%E5%85%A5
 
-@element-plus/icons-vue：https://element-plus.org/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87
+   @element-plus/icons-vue：https://element-plus.org/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87
 
-这里ElementPlus我们使用完整引入
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-app.use(ElementPlus)
+   这里ElementPlus我们使用完整引入
+   import ElementPlus from 'element-plus'
+   import 'element-plus/dist/index.css'
+   app.use(ElementPlus)
 
-//注册@element-plus/icons-vue图标
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
+   //注册@element-plus/icons-vue图标
+   import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+   }
+三.封装axios
+axios官网：https://www.axios-http.cn/docs/intro
+下载axios
+npm install axios
+1.配置环境地址
+
+在src下创建config文件夹，在其中创建index.js
+
+~~~js
+/**
+ * 环境配置文件
+ * 一般在企业级项目里面有三个环境
+ * 开发环境
+ * 测试环境
+ * 线上环境
+ */
+
+
+// 当前的环境
+const env = import.meta.env.MODE || 'prod'
+
+const EnvConfig = {
+  development: {
+    baseApi: '/api',
+    mockApi: 'https://mock.apifox.cn/m1/4068509-0-default/api',
+  },
+  test: {
+    baseApi: '//test.future.com/api',
+    mockApi: 'https://mock.apifox.cn/m1/4068509-0-default/api',
+  },
+  pro: {
+    baseApi: '//future.com/api',
+    mockApi: 'https://mock.apifox.cn/m1/4068509-0-default/api',
+  },
 }
+
+export default {
+  env,
+  mock:false,
+  ...EnvConfig[env]
+}
+~~~
+
+2.在src下创建api文件夹，在其中创建request.js
+
+~~~js
+
+~~~
+
+3.定义请求方法
+
+在api文件夹下创建api.js文件
+
+~~~js
+/**
+ * 整个项目api的管理
+ * 
+ */
+ import request from "./request"
+
+ export default {
+   // home组件 左侧表格数据获取
+   getTableData() {
+     return request({
+       url: '/home/getTableData',
+       method: 'get',
+     })
+   }
+  
+ }
+~~~
+
+4.设置全局可用的请求对象
+
+在main.js中
+
+~~~js
+import api from '@/api/api'
+
+app.config.globalProperties.$api = api
+~~~
+
+
+
+  
+
 
  
