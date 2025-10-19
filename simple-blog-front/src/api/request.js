@@ -35,6 +35,8 @@ function request (options){
     options.method = options.method || 'get'
     if(options.method.toLowerCase() === 'get'){
         options.params = options.data || {}
+        // 删除 data 属性，避免 axios 尝试将其作为请求体发送
+        delete options.data
     }
     service.defaults.baseURL =  config.baseApi
 
