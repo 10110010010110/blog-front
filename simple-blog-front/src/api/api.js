@@ -48,5 +48,13 @@ export default {
             method:'delete',
             data:config
     })
-}
+},
+    getPostNumber(data){
+        return request({
+            url:'/post/getpostnumber',
+            method:'get',
+            data
+            
+    })        
+},
 }

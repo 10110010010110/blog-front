@@ -20,7 +20,7 @@
       </el-table-column>
     </el-table>
 
-    <div class="pager" v-if="total > pageSize">
+    <div class="pager" >
       <el-pagination
         background
         layout="prev, pager, next"
@@ -133,6 +133,7 @@ function removePost (row) {{
     const data = await proxy.$api.deletePost({id: row.ID})
     ElMessage.success('博文删除成功')
     loadList()
+
   }).catch(() => {
     // 取消删除
 })
@@ -164,11 +165,17 @@ const handleSave = () => {
 }
 
 const loadList = async()=>{
-  
-  const data= await proxy.$api.getPosts({Title: q.value})
+
+  const data= await proxy.$api.getPosts({Title: q.value,Page: page.value,PageSize: pageSize.value})
+  getpostnumber()
   list.value = data
+
+}
+const getpostnumber = async()=>{
+  const data= await proxy.$api.getPostNumber({Title: q.value})
   total.value = data.length
 }
+
 
 
 
