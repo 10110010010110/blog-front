@@ -64,6 +64,7 @@ const form = reactive({
 
 onMounted(() => {
   try {
+
     const raw = localStorage.getItem('user')
     user.value = raw ? JSON.parse(raw) : null
   } catch (e) {
@@ -93,7 +94,6 @@ function goEdit() {
   form.Password = user.value.Password
 }
 const editUser= async()=>{
-
    const data =await proxy.$api.editUser({id: user.value.ID,...form})
    form.Username = data.Username
    form.Password = data.Password

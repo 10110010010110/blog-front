@@ -15,10 +15,11 @@ export default {
     })
 },
     editUser(config){
+        const{id,...rest} = config
         return request({
-            url:'/user/edituser',
+            url:`/user/edituser/${id}`,
             method:'put',
-            data:config
+            data:rest
     })
 },
     createPost(config){
@@ -36,10 +37,11 @@ export default {
     })
 },
     editPost(config){
+        const {id,...rest} = config
         return request({
-            url:'/post/editpost',
+            url:`/post/editpost/${id}`,
             method:'put',
-            data:config
+            data:rest
     })
 },
    deletePost(config){

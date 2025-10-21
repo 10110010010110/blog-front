@@ -68,8 +68,6 @@ const handleSubmit = async() => {
     const data = await proxy.$api.login(form)
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
-
-  
       ElMessage.success('登录成功')
       router.push('/home')
 }

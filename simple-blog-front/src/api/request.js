@@ -8,7 +8,15 @@ const service = axios.create(
   }
 );
 service.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
+     const url = config.url;
+     // 排除登录和注册接口
+     if (url !== '/user/login' && url !== '/user/register') {
+          const token = localStorage.getItem('token');
+          if (token) {
+              // 在请求头中添加 token
+              config.headers['Authorization'] = `Bearer ${token}`;
+          }
+      }
     return config;
   }, function (error) {
     // 对请求错误做些什么

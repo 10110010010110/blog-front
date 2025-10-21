@@ -104,11 +104,11 @@ const formTitle = computed(() => {
 
 
 onMounted(() => {
+   const token = localStorage.getItem('token')
    const raw = localStorage.getItem('user')
    user.value = raw ? JSON.parse(raw) : null
    loadList()
 })
-
 
 function openCreate() {
   isEdit.value = false
@@ -145,13 +145,23 @@ function viewDetail(row) {
 }
 
 const createpost = async()=>{
+  if(user.value==null){
+    const data =await proxy.$api.createPost({...form})
+    return
+  }
   form.UserID = user.value.ID
   const data =await proxy.$api.createPost({...form})
+  ElMessage.success('博文创建成功')
   loadList()
 }
 const editpost = async()=>{
+  if(user.value==null){
+    const data =await proxy.$api.editPost({id:form.ID,...form})
+    return
+  }
   form.UserID = user.value.ID
   const data =await proxy.$api.editPost({id:form.ID,...form})
+  ElMessage.success('博文编辑成功')
   loadList()
 }
 const handleSave = () => {
